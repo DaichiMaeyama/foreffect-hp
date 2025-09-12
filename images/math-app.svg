@@ -1,0 +1,43 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFB6C1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFC0CB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="url(#bgGradient)"/>
+  
+  <!-- タイトル -->
+  <text x="200" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FF6B6B">🔒 マネマネ算数 1年生用 🔒</text>
+  
+  <!-- メインコンテンツエリア -->
+  <rect x="50" y="70" width="300" height="180" rx="15" fill="white" stroke="#FFD700" stroke-width="3"/>
+  
+  <!-- 質問テキスト -->
+  <text x="200" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#4A90E2">今日は何を勉強しますか？</text>
+  
+  <!-- ボタン1: かずとすうじ -->
+  <rect x="70" y="130" width="80" height="40" rx="20" fill="#FFB6C1"/>
+  <text x="110" y="152" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">📊 かずとすうじ</text>
+  
+  <!-- ボタン2: たしざん -->
+  <rect x="160" y="130" width="80" height="40" rx="20" fill="#FFB6C1"/>
+  <text x="200" y="152" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">➕ たしざん</text>
+  
+  <!-- ボタン3: ひきざん -->
+  <rect x="250" y="130" width="80" height="40" rx="20" fill="#FFB6C1"/>
+  <text x="290" y="152" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">➖ ひきざん</text>
+  
+  <!-- ボタン4: とけい -->
+  <rect x="115" y="180" width="80" height="40" rx="20" fill="#FFB6C1"/>
+  <text x="155" y="202" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">🕐 とけい</text>
+  
+  <!-- ボタン5: その他 -->
+  <rect x="205" y="180" width="80" height="40" rx="20" fill="#FFB6C1"/>
+  <text x="245" y="202" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">📚 その他</text>
+  
+  <!-- カーソル -->
+  <polygon points="200,270 205,275 195,275" fill="#333"/>
+</svg>
