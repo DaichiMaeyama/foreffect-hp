@@ -43,7 +43,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('画像/2431D29C-78F4-4EAA-BA0E-28FA7539612A.JPG');
+    background-image: url('画像/2431D29C-78F4-4EAA-BA0E-28FA7539612A.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -134,7 +134,7 @@ body {
 /* ヒーローセクション */
 .hero {
     min-height: 100vh;
-    background-image: url('画像/2431D29C-78F4-4EAA-BA0E-28FA7539612A.JPG');
+    background-image: url('画像/2431D29C-78F4-4EAA-BA0E-28FA7539612A.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
