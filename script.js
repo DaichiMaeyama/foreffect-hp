@@ -5,7 +5,7 @@ const navLinks = document.querySelectorAll('.nav-menu a');
 const header = document.querySelector('.header');
 const sections = document.querySelectorAll('section');
 const contactForm = document.querySelector('.contact-form');
-
+const licenseInput = document.querySelector('.license-input');
 
 // ページ読み込み時の初期化
 document.addEventListener('DOMContentLoaded', function() {
@@ -29,7 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // アニメーションの初期化
     initScrollAnimations();
     
-
+    // 古物商許可番号の入力欄を設定
+    if (licenseInput) {
+        licenseInput.placeholder = '古物商許可番号を入力してください';
+        licenseInput.removeAttribute('readonly');
+    }
 });
 
 // スムーズスクロールの初期化

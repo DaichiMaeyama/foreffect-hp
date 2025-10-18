@@ -56,7 +56,7 @@
             <div class="container">
                 <h2 class="section-title">サービス</h2>
                 <div class="services-grid">
-                    <div class="service-card" onclick="showImage('画像/ローマ字タイピング練習.jpg')">
+                    <div class="service-card">
                         <div class="service-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -67,7 +67,7 @@
                         <h3>アプリ開発</h3>
                         <p>モバイルアプリからWebアプリケーションまで、お客様のニーズに合わせたカスタムアプリケーションを開発いたします。</p>
                     </div>
-                    <div class="service-card" onclick="showImage('画像/ホームページ.jpg')">
+                    <div class="service-card">
                         <div class="service-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -77,7 +77,7 @@
                         <h3>HP制作</h3>
                         <p>プロフェッショナルなホームページ制作で、あなたのビジネスをオンラインで効果的にアピールします。</p>
                     </div>
-                    <div class="service-card" onclick="showImage('画像/IMG_1436.jpg')">
+                    <div class="service-card">
                         <div class="service-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <rect x="4" y="4" width="16" height="12" rx="2"></rect>
@@ -87,10 +87,10 @@
                         <h3>PC販売</h3>
                         <p>中古PCから新型PCまで幅広く取り扱い。古物商許可取得済みで安心してお取引いただけます。</p>
                         <div class="license-info">
-                            <p class="license-text">古物商 第961260040060号</p>
+                            <input type="text" value="古物商 第961260040060号" class="license-input" readonly>
                         </div>
                     </div>
-                    <div class="service-card" onclick="showImage('画像/IMG_1855.jpg')">
+                    <div class="service-card">
                         <div class="service-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -99,7 +99,7 @@
                         <h3>PC修理・メンテナンス</h3>
                         <p>パソコンの故障やトラブルから定期メンテナンスまで、専門技術でサポートいたします。</p>
                     </div>
-                    <div class="service-card" onclick="showImage('画像/IMG_1562.jpg')">
+                    <div class="service-card">
                         <div class="service-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
@@ -118,7 +118,7 @@
             <div class="container">
                 <h2 class="section-title">ポートフォリオ</h2>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item" onclick="showImage('画像/小学1年生用さんすうアプリ.gif')">
+                    <div class="portfolio-item">
                         <div class="portfolio-image">
                             <div class="placeholder-image">小学1年生用さんすうアプリ</div>
                         </div>
@@ -131,30 +131,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="portfolio-item" onclick="showImage('画像/ローマ字タイピング練習.gif')">
+                    <div class="portfolio-item">
                         <div class="portfolio-image">
-                            <div class="placeholder-image">ローマ字タイピング練習アプリ</div>
+                            <div class="placeholder-image">小学1年生用さんすうアプリ</div>
                         </div>
                         <div class="portfolio-content">
-                            <p>楽しくローマ字入力を学習できるタイピング練習アプリです。初心者から上級者まで段階的にスキルアップできます。</p>
+                            <h3>プロジェクト名</h3>
+                            <p>プロジェクトの説明文がここに入ります。</p>
                             <div class="portfolio-tags">
-                                <span class="tag">教育アプリ</span>
-                                <span class="tag">タイピング</span>
-                                <span class="tag">学習支援</span>
+                                <span class="tag">モバイルアプリ</span>
+                                <span class="tag">Flutter</span>
                             </div>
                         </div>
                     </div>
-                    <div class="portfolio-item" onclick="showImage('画像/ホームページ.gif')">
+                    <div class="portfolio-item">
                         <div class="portfolio-image">
-                            <div class="placeholder-image">ホームページ制作</div>
+                            <div class="placeholder-image">小学1年生用さんすうアプリ</div>
                         </div>
                         <div class="portfolio-content">
-
-                            <p>企業や個人向けのプロフェッショナルなホームページを制作いたします。レスポンシブデザインで様々なデバイスに対応します。</p>
+                            <h3>プロジェクト名</h3>
+                            <p>プロジェクトの説明文がここに入ります。</p>
                             <div class="portfolio-tags">
                                 <span class="tag">HP制作</span>
-                                <span class="tag">レスポンシブ</span>
-                                <span class="tag">Web制作</span>
+                                <span class="tag">WordPress</span>
                             </div>
                         </div>
                     </div>
@@ -171,9 +170,8 @@
                         <h3>FOREFFECT</h3>
                         <div class="info-item">
                             <strong>住所:</strong>
-                            <p>〒893-2504<br>
-                            鹿児島県肝属郡南大隅町根占山本700<br>
-                            旧根占中学校跡地 2F</p>
+                            <p>〒893-2505<br>
+                            鹿児島県 肝属郡 南大隅町 根占 辺田 1729-1</p>
                         </div>
                         <div class="info-item">
                             <strong>電話番号:</strong>
@@ -255,27 +253,6 @@
         </div>
     </footer>
 
-    <!-- 画像モーダル -->
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImage" src="" alt="ポートフォリオ画像">
-        </div>
-    </div>
-
     <script src="script.js"></script>
-    <script>
-        function showImage(imagePath) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modalImg.src = imagePath;
-            modal.style.display = 'block';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.style.display = 'none';
-        }
-    </script>
 </body>
 </html>
