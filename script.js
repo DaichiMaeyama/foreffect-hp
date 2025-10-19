@@ -6,12 +6,8 @@ const header = document.querySelector('.header');
 const sections = document.querySelectorAll('section');
 const contactForm = document.querySelector('.contact-form');
 
-// EmailJS初期化
-(function(){
-    emailjs.init({
-        publicKey: "YOUR_PUBLIC_KEY", // 後で設定
-    });
-})();
+// Google Apps Script WebアプリURL（後で実URLに置換）
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwXsK5bsb91jfsTSYR0ynLPGm2RsYkqXdn2dlo2Xjqm0Yw9q1-rj6ye6eea5JAd8w/exec';
 
 
 // ページ読み込み時の初期化
@@ -314,66 +310,52 @@ function clearFieldError(fieldName) {
     }
 }
 
-// メール送信処理
-function sendEmail(name, email, subject, message) {
+// メール送信処理（Google Apps Script版）
+async function sendEmail(name, email, subject, message) {
     // 送信ボタンを無効化
     const submitButton = contactForm.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
     submitButton.disabled = true;
     submitButton.textContent = '送信中...';
-    
-    // EmailJSを使用してメール送信（デモ用の設定）
-    // 実際の使用時はEmailJSアカウントの設定が必要です
-    const templateParams = {
-        from_name: name,
-        from_email: email,
-        subject: subject,
-        message: message,
-        to_email: 'daimercurial@gmail.com'
-    };
-    
-    // デモ用：実際のEmailJS送信をシミュレート
-    // 本番環境では以下のコメントアウトを解除し、適切なサービスIDとテンプレートIDを設定してください
-    /*
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
-            showSuccessMessage('お問い合わせありがとうございます。メールを送信しました。');
-            contactForm.reset();
-        }, function(error) {
-            console.log('FAILED...', error);
-            showErrorMessage('送信に失敗しました。もう一度お試しください。');
-        })
-        .finally(() => {
-            window.formSubmitting = false;
-            submitButton.disabled = false;
-            submitButton.textContent = originalText;
+
+    const payload = { name, email, subject, message };
+
+    try {
+        // まず通常のCORSで送信を試みる
+        const res = await fetch(GAS_WEB_APP_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
-    */
-    
-    // デモ用の処理（実際のメール送信をシミュレート）
-    setTimeout(() => {
-        // 実際のメール送信の代わりに、フォームデータをコンソールに出力
-        console.log('=== お問い合わせ内容 ===');
-        console.log('宛先: daimercurial@gmail.com');
-        console.log('お名前:', name);
-        console.log('メールアドレス:', email);
-        console.log('件名:', subject);
-        console.log('メッセージ:', message);
-        console.log('========================');
-        
-        showSuccessMessage('お問い合わせありがとうございます。メールを送信しました。（デモモード）');
-        
-        // フォームをリセット
+
+        if (!res.ok) {
+            throw new Error('Response not ok: ' + res.status);
+        }
+
+        showSuccessMessage('お問い合わせありがとうございます。送信が完了しました。');
         contactForm.reset();
-        
-        // フォーム送信フラグをリセット
+    } catch (err) {
+        console.warn('CORSエラーの可能性。no-corsで再試行します:', err);
+
+        try {
+            await fetch(GAS_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            // no-corsではレスポンスを読めないため、送信完了とみなします
+            showSuccessMessage('お問い合わせありがとうございます。送信が完了しました。');
+            contactForm.reset();
+        } catch (err2) {
+            console.error('GAS送信失敗:', err2);
+            showErrorMessage('送信に失敗しました。もう一度お試しください。');
+        }
+    } finally {
         window.formSubmitting = false;
-        
-        // ボタンを元に戻す
         submitButton.disabled = false;
         submitButton.textContent = originalText;
-    }, 2000); // 2秒の送信シミュレーション
+    }
 }
 
 // 成功メッセージの表示
