@@ -5,7 +5,14 @@ const navLinks = document.querySelectorAll('.nav-menu a');
 const header = document.querySelector('.header');
 const sections = document.querySelectorAll('section');
 const contactForm = document.querySelector('.contact-form');
-const licenseInput = document.querySelector('.license-input');
+
+// EmailJS初期化
+(function(){
+    emailjs.init({
+        publicKey: "YOUR_PUBLIC_KEY", // 後で設定
+    });
+})();
+
 
 // ページ読み込み時の初期化
 document.addEventListener('DOMContentLoaded', function() {
@@ -29,12 +36,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // アニメーションの初期化
     initScrollAnimations();
     
-    // 古物商許可番号の入力欄を設定
-    if (licenseInput) {
-        licenseInput.placeholder = '古物商許可番号を入力してください';
-        licenseInput.removeAttribute('readonly');
-    }
+    // 画像キャッシュバスティング
+    updateBackgroundImages();
+
 });
+
+// 背景画像のキャッシュバスティング
+function updateBackgroundImages() {
+    const timestamp = Date.now();
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        heroSection.style.backgroundImage = `url('画像/2431D29C-78F4-4EAA-BA0E-28FA7539612A.jpg?v=${timestamp}')`;
+    }
+}
 
 // スムーズスクロールの初期化
 function initSmoothScroll() {
@@ -159,6 +173,9 @@ function initContactForm() {
             if (!validateForm(name, email, subject, message)) {
                 return;
             }
+            
+            // フォーム送信フラグを設定（beforeunload警告を無効化）
+            window.formSubmitting = true;
             
             // メール送信の処理
             sendEmail(name, email, subject, message);
@@ -305,34 +322,66 @@ function sendEmail(name, email, subject, message) {
     submitButton.disabled = true;
     submitButton.textContent = '送信中...';
     
-    // メール本文の作成
-    const emailBody = `お名前: ${name}\nメールアドレス: ${email}\n件名: ${subject}\n\nメッセージ:\n${message}`;
+    // EmailJSを使用してメール送信（デモ用の設定）
+    // 実際の使用時はEmailJSアカウントの設定が必要です
+    const templateParams = {
+        from_name: name,
+        from_email: email,
+        subject: subject,
+        message: message,
+        to_email: 'daimercurial@gmail.com'
+    };
     
-    // mailto リンクを作成
-    const mailtoLink = `mailto:daimercurial@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    // デモ用：実際のEmailJS送信をシミュレート
+    // 本番環境では以下のコメントアウトを解除し、適切なサービスIDとテンプレートIDを設定してください
+    /*
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            showSuccessMessage('お問い合わせありがとうございます。メールを送信しました。');
+            contactForm.reset();
+        }, function(error) {
+            console.log('FAILED...', error);
+            showErrorMessage('送信に失敗しました。もう一度お試しください。');
+        })
+        .finally(() => {
+            window.formSubmitting = false;
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        });
+    */
     
-    // メールクライアントを開く
-    window.location.href = mailtoLink;
-    
-    // 送信完了メッセージを表示
+    // デモ用の処理（実際のメール送信をシミュレート）
     setTimeout(() => {
-        showSuccessMessage('お問い合わせありがとうございます。メールクライアントが開きます。');
+        // 実際のメール送信の代わりに、フォームデータをコンソールに出力
+        console.log('=== お問い合わせ内容 ===');
+        console.log('宛先: daimercurial@gmail.com');
+        console.log('お名前:', name);
+        console.log('メールアドレス:', email);
+        console.log('件名:', subject);
+        console.log('メッセージ:', message);
+        console.log('========================');
+        
+        showSuccessMessage('お問い合わせありがとうございます。メールを送信しました。（デモモード）');
         
         // フォームをリセット
         contactForm.reset();
         
+        // フォーム送信フラグをリセット
+        window.formSubmitting = false;
+        
         // ボタンを元に戻す
         submitButton.disabled = false;
         submitButton.textContent = originalText;
-    }, 1000);
+    }, 2000); // 2秒の送信シミュレーション
 }
 
 // 成功メッセージの表示
 function showSuccessMessage(message) {
-    // 既存の成功メッセージを削除
-    const existingSuccess = document.querySelector('.success-message');
-    if (existingSuccess) {
-        existingSuccess.remove();
+    // 既存のメッセージを削除
+    const existingMessage = document.querySelector('.success-message, .error-message');
+    if (existingMessage) {
+        existingMessage.remove();
     }
     
     const successElement = document.createElement('div');
@@ -354,6 +403,43 @@ function showSuccessMessage(message) {
     setTimeout(() => {
         if (successElement.parentNode) {
             successElement.remove();
+        }
+    }, 3000);
+}
+
+// エラーメッセージの表示
+function showErrorMessage(message) {
+    // 既存のメッセージを削除
+    const existingMessage = document.querySelector('.success-message, .error-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    const errorElement = document.createElement('div');
+    errorElement.className = 'error-message';
+    errorElement.textContent = message;
+    errorElement.style.cssText = `
+        background: #e74c3c;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+        text-align: center;
+        font-weight: bold;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    `;
+    
+    document.body.appendChild(errorElement);
+    
+    // 3秒後に自動で削除
+    setTimeout(() => {
+        if (errorElement && errorElement.parentNode) {
+            errorElement.remove();
         }
     }, 3000);
 }
@@ -413,6 +499,11 @@ window.addEventListener('scroll', throttle(function() {
 
 // ページ離脱時の確認（フォーム入力中の場合）
 window.addEventListener('beforeunload', function(e) {
+    // フォーム送信中の場合は警告を表示しない
+    if (window.formSubmitting) {
+        return;
+    }
+    
     const formInputs = contactForm.querySelectorAll('input, textarea');
     let hasContent = false;
     
